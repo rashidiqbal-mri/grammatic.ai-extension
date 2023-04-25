@@ -1,0 +1,1 @@
+{"version":3,"file":"contentScript.js","mappings":";;;;;AAAA;AACA;AACA;AACA","sources":["webpack://react-js-chrome-extension/./src/contentScript/contentScript.ts"],"sourcesContent":["window.onload=()=>{\n    console.log(\"i am from content script\");\n    \n}"],"names":[],"sourceRoot":""}
