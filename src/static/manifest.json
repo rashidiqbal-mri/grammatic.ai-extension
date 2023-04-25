@@ -10,12 +10,19 @@
     },
     "action":{
         "default_title":"Click Me",
-        "default_popup":"popup.html"
+        "default_popup":"menu.html"
         
     },
     "permissions":[
         "tabs",
         "bookmarks"
+    ],
+
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["contentScript.js"]
+        }
     ],
 
     "background":{

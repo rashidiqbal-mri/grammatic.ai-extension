@@ -7,13 +7,14 @@ const autoprefixer=require("autoprefixer")
 module.exports = {
 
   entry: {
-    popup: path.resolve("./src/popup/popup.tsx"), 
+    popup: path.resolve("./src/Menu/index.tsx"), 
     options:path.resolve("/src/options/options.tsx"),
     background:path.resolve("./src/background/background.ts"),
     contentScript:path.resolve("./src/contentScript/contentScript.ts"),
     dashboard:path.resolve("src/dashboard/index.tsx"),
     newTab:path.resolve("/src/tabs/index.tsx"),
-    content:path.resolve("src/contentScript/contentScript.ts")
+    content:path.resolve("src/contentScript/contentScript.ts"),
+    menu:path.resolve("src/Menu/index.tsx")
   },
 
   module: {
@@ -22,7 +23,7 @@ module.exports = {
       
       {
         use: "ts-loader", // specifies that the ts-loader should be used for TypeScript files
-        test: /\.tsx$/, // specifies which files should be handled by the rule (in this case, files with the .tsx extension)
+        test: /\.(ts|tsx)$/, // specifies which files should be handled by the rule (in this case, files with the .tsx extension)
         exclude: /node_modules/, // specifies that files in the node_modules directory should be excluded from the rule
       },
       {
@@ -74,7 +75,8 @@ module.exports = {
     ...getHtmlPlugins([
       "popup",
       "options",
-      "newTab"
+      "newTab",
+      "menu"
     ])
   ],
 

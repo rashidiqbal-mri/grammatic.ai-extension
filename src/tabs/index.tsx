@@ -9,7 +9,7 @@ function init(){
         throw new Error("can not find AppContainer");
     }
     const root=createRoot(appContainer);
-    console.log(appContainer);
+    
     root.render(<Tabs/>)
 
 }

@@ -2,86 +2,64 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/popup/popup.tsx":
-/*!*****************************!*\
-  !*** ./src/popup/popup.tsx ***!
-  \*****************************/
+/***/ "./src/Menu/index.tsx":
+/*!****************************!*\
+  !*** ./src/Menu/index.tsx ***!
+  \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _assets_tailwind_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/tailwind.css */ "./src/assets/tailwind.css");
+/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./menu */ "./src/Menu/menu.tsx");
 
 
 
-const test = (react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null,
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "logo" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", { src: "logo.png", alt: "Grammarly logo" })),
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", null,
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Home")),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Features")),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Pricing")),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Contact")))),
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "search-bar" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", { type: "text", placeholder: "Search..." }),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", null, "Search"))),
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null,
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "hero" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Write with confidence"),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Grammarly helps you eliminate writing errors and find the perfect words to express yourself."),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", { className: "text-5xl bg-teal-400" }, "Get started")),
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "features" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Features"),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fas fa-check" }),
-                    " Grammar and spell check"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fas fa-check" }),
-                    " Writing suggestions"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fas fa-check" }),
-                    " Plagiarism detection"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fas fa-check" }),
-                    " Tone detection"))),
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "pricing" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Pricing"),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Basic: Free"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Premium: $29.95/month"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Business: Contact us")),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", null, "Sign up"))),
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("footer", null,
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "footer-links" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "About us")),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Blog")),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Privacy policy")),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null,
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" }, "Terms of service")))),
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "social-icons" },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" },
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fab fa-facebook" })),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" },
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fab fa-twitter" })),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "#" },
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", { className: "fab fa-linkedin" }))))));
-const container = document.createElement("div");
-document.body.appendChild(container);
-const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
-root.render(test);
+function init() {
+    const appContainer = document.createElement("div");
+    document.body.appendChild(appContainer);
+    if (!appContainer) {
+        throw new Error("can not find AppContainer");
+    }
+    const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(appContainer);
+    root.render(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_menu__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+}
+init();
+
+
+/***/ }),
+
+/***/ "./src/Menu/menu.tsx":
+/*!***************************!*\
+  !*** ./src/Menu/menu.tsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_tailwind_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/tailwind.css */ "./src/assets/tailwind.css");
+
+
+const Menu = () => {
+    const [selectedText, setSelectedText] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (message.type === 'selectedText') {
+                setSelectedText(message.text);
+            }
+        });
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null,
+            "Selected Text: ",
+            selectedText)));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Menu);
 
 
 /***/ })
@@ -263,7 +241,7 @@ root.render(test);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_css-loader_dist_runtime_api_js-node_modules_css-loader_dist_runtime_sour-b53f7e","src_assets_tailwind_css"], () => (__webpack_require__("./src/popup/popup.tsx")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_css-loader_dist_runtime_api_js-node_modules_css-loader_dist_runtime_sour-b53f7e","src_assets_tailwind_css"], () => (__webpack_require__("./src/Menu/index.tsx")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

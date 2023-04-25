@@ -2,9 +2,9 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/tabs/index.tsx":
+/***/ "./src/Menu/index.tsx":
 /*!****************************!*\
-  !*** ./src/tabs/index.tsx ***!
+  !*** ./src/Menu/index.tsx ***!
   \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabs */ "./src/tabs/tabs.tsx");
+/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./menu */ "./src/Menu/menu.tsx");
 
 
 
@@ -23,16 +23,16 @@ function init() {
         throw new Error("can not find AppContainer");
     }
     const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(appContainer);
-    root.render(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+    root.render(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_menu__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 }
 init();
 
 
 /***/ }),
 
-/***/ "./src/tabs/tabs.tsx":
+/***/ "./src/Menu/menu.tsx":
 /*!***************************!*\
-  !*** ./src/tabs/tabs.tsx ***!
+  !*** ./src/Menu/menu.tsx ***!
   \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -45,10 +45,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_tailwind_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/tailwind.css */ "./src/assets/tailwind.css");
 
 
-const Tabs = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: 'text-5xl bg-red-600' }, "New Tabs"));
+const Menu = () => {
+    const [selectedText, setSelectedText] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (message.type === 'selectedText') {
+                setSelectedText(message.text);
+            }
+        });
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null,
+            "Selected Text: ",
+            selectedText)));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tabs);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Menu);
 
 
 /***/ })
@@ -175,7 +186,7 @@ const Tabs = () => {
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"newTab": 0
+/******/ 			"menu": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -230,9 +241,9 @@ const Tabs = () => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_css-loader_dist_runtime_api_js-node_modules_css-loader_dist_runtime_sour-b53f7e","src_assets_tailwind_css"], () => (__webpack_require__("./src/tabs/index.tsx")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_css-loader_dist_runtime_api_js-node_modules_css-loader_dist_runtime_sour-b53f7e","src_assets_tailwind_css"], () => (__webpack_require__("./src/Menu/index.tsx")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=newTab.js.map
+//# sourceMappingURL=menu.js.map
