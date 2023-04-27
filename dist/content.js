@@ -15,79 +15,59 @@ function addButtonToTextBoxes() {
         button.innerText = "RI";
         button.style.backgroundColor = "teal";
         button.style.position = "absolute";
-        button.style.top = "50%";
         button.style.borderRadius = "100%";
-        button.style.transform = "translateY(-50%)";
-        button.style.right = "0";
         button.style.padding = "0.5em";
         button.style.border = "none";
         button.style.color = "#fff";
-        button.style.display = "none";
-        button.addEventListener('click', () => {
-            chrome.runtime.sendMessage({ type: 'openMenu' });
-        });
+        //   button.style.display = "none";
+        button.style.bottom = "2px";
+        button.style.right = "2px";
         container.appendChild(button);
+        console.log(button);
+        console.log('addButtonToTextBoxes function is being executed!');
+        button.addEventListener("click", (event) => {
+            event.preventDefault(); // prevent form submission
+            console.log("rashid");
+            let message = {
+                type: "open_menu"
+            };
+            chrome.runtime.sendMessage(message, (response) => {
+                console.log(response);
+            });
+        });
         textBox.addEventListener("focus", () => {
             button.style.display = "inline-block";
         });
-        textBox.addEventListener("blur", () => {
-            button.style.display = "none";
-        });
-    });
-    let iframes = document.querySelectorAll("iframe");
-    iframes.forEach((iframe) => {
-        try {
-            let iframeDocument = iframe.contentDocument;
-            let iframeTextBoxes = iframeDocument.querySelectorAll("input[type='text'], textarea");
-            iframeTextBoxes.forEach((textBox) => {
-                let container = document.createElement("div");
-                container.style.position = "relative";
-                container.style.display = "inline-block";
-                textBox.before(container);
-                container.appendChild(textBox);
-                let button = document.createElement("button");
-                button.innerText = "RI";
-                button.style.backgroundColor = "teal";
-                button.style.position = "absolute";
-                button.style.top = "50%";
-                button.style.borderRadius = "100%";
-                button.style.transform = "translateY(-50%)";
-                button.style.right = "calc(5% + 40px)";
-                button.style.padding = "0.5em";
-                button.style.border = "none";
-                button.style.color = "#fff";
-                button.style.display = "none";
-                button.addEventListener("click", () => {
-                    chrome.runtime.sendMessage({ type: 'openMenu' });
-                });
-                container.appendChild(button);
-                textBox.addEventListener("focus", () => {
-                    button.style.display = "inline-block";
-                });
-                textBox.addEventListener("blur", () => {
-                    button.style.display = "none";
-                });
-            });
-        }
-        catch (e) {
-            console.error(e);
-        }
+        //   textBox.addEventListener("blur", () => {
+        //     button.style.display = "none";
+        //   });
     });
 }
 addButtonToTextBoxes();
-//copy text
-function copySelectedTextToClipboard() {
+// Send a message to the background script with the selected text
+function copySelectedTextToBackground() {
     const activeElement = document.activeElement;
     if (activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement) {
         const selectedText = activeElement.value.substring(activeElement.selectionStart, activeElement.selectionEnd);
         if (selectedText) {
-            chrome.runtime.sendMessage({ type: 'selectedText', text: selectedText }, function (response) {
-                console.log('Response:', response);
-            });
+            chrome.runtime.sendMessage({ type: 'selectedText', text: selectedText });
         }
     }
 }
-document.addEventListener('select', copySelectedTextToClipboard);
+document.addEventListener('mouseup', copySelectedTextToBackground);
+document.addEventListener('keyup', copySelectedTextToBackground);
+//textbox
+function copyTextboxTextToBackground() {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement) {
+        const textboxText = activeElement.value;
+        if (textboxText) {
+            chrome.runtime.sendMessage({ type: 'textboxText', text: textboxText });
+        }
+    }
+}
+document.addEventListener('mouseup', copyTextboxTextToBackground);
+document.addEventListener('keyup', copyTextboxTextToBackground);
 
 /******/ })()
 ;

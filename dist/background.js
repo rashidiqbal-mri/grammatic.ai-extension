@@ -1,15 +1,1 @@
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-/*!**************************************!*\
-  !*** ./src/background/background.ts ***!
-  \**************************************/
-chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === "openMenu") {
-        console.log("Received openMenu message");
-        // ...
-    }
-});
-
-/******/ })()
-;
-//# sourceMappingURL=background.js.map
+(()=>{let e="",t="";chrome.runtime.onMessage.addListener(((t,n,o)=>{"selectedText"===t.type&&(e=t.text)})),chrome.runtime.onMessage.addListener(((t,n,o)=>{"getSelectedText"===t.type&&o({selectedText:e})})),chrome.runtime.onMessage.addListener(((e,n,o)=>{"textboxText"===e.type?t=e.text:"getTextboxText"===e.type&&o({textboxText:t})}));let n=null;chrome.runtime.onMessage.addListener(((e,t,o)=>{if("toggle_menu"===e.type){const{x:t,y:o}=e.coordinates;null===n?chrome.windows.create({url:chrome.runtime.getURL("menu.html"),type:"popup",width:400,height:300,left:Math.round(t),top:Math.round(o)+170},(e=>{n=e.id})):chrome.windows.remove(n,(()=>{n=null}))}return!0}))})();

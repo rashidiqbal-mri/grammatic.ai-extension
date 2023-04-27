@@ -1,17 +1,15 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import Menu from "./menu";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Menu from './menu';
 
-function init(){
-    const appContainer=document.createElement("div");
-    document.body.appendChild(appContainer);
-    if(!appContainer){
-        throw new Error("can not find AppContainer");
-    }
-    const root=createRoot(appContainer);
-    
-    root.render(<Menu/>)
-
+function init() {
+  const appContainer = document.createElement('div');
+  document.body.appendChild(appContainer);
+  if (!appContainer) {
+    throw new Error('Can not find AppContainer');
+  }
+  
+  ReactDOM.render(<Menu />, appContainer);
 }
 
-init()
+init();
