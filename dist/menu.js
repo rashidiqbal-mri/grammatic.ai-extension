@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "underlineColors": () => (/* binding */ underlineColors),
 /* harmony export */   "wordsToUnderline": () => (/* binding */ wordsToUnderline)
 /* harmony export */ });
-const wordsToUnderline = ['bug', 'develuper', 'high-quality'];
+const wordsToUnderline = ['cool', 'rashid', 'high-quality'];
 const underlineColors = ['green', '#ff0000', '#ff0000'];
 
 
