@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "../assets/tailwind.css"
 import {Magic} from './components/Magic';
+import { wordsToUnderline,underlineColors } from './components/Color';
 
+interface Props {
+  textboxValue: string;
+}
 
 const menu = () => {
   const [selectedText, setSelectedText] = useState('');
@@ -18,9 +22,10 @@ const menu = () => {
       setTextboxText(response.textboxText || '');
     });
   }, []);
+
+  
   const text =textboxText;
-   const wordsToUnderline = ['bug', 'develuper', 'high-quality'];
-   const underlineColors = ['green', '#ff0000', '#ff0000'];
+   
 
     return (
 
@@ -103,68 +108,4 @@ const menu = () => {
 
 
 
-// import React, { useState, useEffect } from 'react';
-// import '../assets/tailwind.css';
 
-// const Menu = () => {
-//   const [selectedText, setSelectedText] = useState('');
-//   const [textboxText, setTextboxText] = useState('');
-
-//   useEffect(() => {
-//     chrome.runtime.sendMessage({ type: 'getSelectedText' }, (response) => {
-//       setSelectedText(response.selectedText || '');
-//     });
-//   }, []);
-
-//   useEffect(() => {
-//     chrome.runtime.sendMessage({ type: 'getTextboxText' }, (response) => {
-//       setTextboxText(response.textboxText || '');
-//     });
-//   }, []);
-
-//   const handleTextboxChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-//     chrome.runtime.sendMessage({ type: 'textboxText', text: event.target.value });
-//   };
-
-//   const correctedText = textboxText.replace('doon', 'done');
-//   const isCorrected = correctedText !== textboxText;
-//   const incorrectWord = 'doon';
-//   const correctedWord = 'done';
-//   const textArray = textboxText.split(incorrectWord);
-
-//   return (
-//     <div>
-//       <p className="text-4xl">Text is: </p>
-//       {isCorrected ? (
-//         <p className="text-4xl">
-//           {textArray.map((text, index) => {
-//             return (
-//               <React.Fragment key={index}>
-//                 {text}
-//                 {index !== textArray.length - 1 && (
-//                   <span className="text-red-600 underline">{incorrectWord}</span>
-//                 )}
-//               </React.Fragment>
-//             );
-//           })}
-//           <br/>
-//           <p className="text-4xl">correct Word is </p>
-//           <span className="text-green-600 underline">{correctedWord}</span>
-//         </p>
-//       ) : (
-//         <p className="text-4xl">{textboxText}</p>
-//       )}
-
-   
-//     {isCorrected && (
-//         <p className="text-4xl">
-//           Corrected text is: <span className="text-green-600">{correctedText}</span>
-//         </p>
-//       )}
-//       <p className="text-4xl">Selected Text is: </p>
-//       <p className="text-4xl text-blue-700">{selectedText}</p>
-//     </div>
-//   );
-// };
-
-// export default Menu;

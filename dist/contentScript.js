@@ -1,1 +1,94 @@
-(()=>{function e(){const e=document.activeElement;if(e instanceof HTMLInputElement||e instanceof HTMLTextAreaElement){const t=e.value.substring(e.selectionStart,e.selectionEnd);t&&chrome.runtime.sendMessage({type:"selectedText",text:t})}}function t(){const e=document.activeElement;if(e instanceof HTMLInputElement||e instanceof HTMLTextAreaElement){const t=e.value;t&&chrome.runtime.sendMessage({type:"textboxText",text:t})}}document.querySelectorAll("input[type='text'], textarea").forEach((e=>{let t=document.createElement("div");t.style.position="relative",t.style.display="inline-block",e.before(t),t.appendChild(e);let n=document.createElement("button");n.innerText="RI",n.style.backgroundColor="teal",n.style.position="absolute",n.style.borderRadius="100%",n.style.padding="0.5em",n.style.border="none",n.style.color="#fff",n.style.bottom="2px",n.style.right="2px",t.appendChild(n),console.log(n),console.log("addButtonToTextBoxes function is being executed!"),n.addEventListener("click",(e=>{e.preventDefault();const t=n.getBoundingClientRect();let o={type:"toggle_menu",coordinates:{x:t.x+window.scrollX,y:t.y+window.scrollY}};chrome.runtime.sendMessage(o)})),e.addEventListener("focus",(()=>{n.style.display="inline-block"}))})),document.addEventListener("mouseup",e),document.addEventListener("keyup",e),document.addEventListener("mouseup",t),document.addEventListener("keyup",t)})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!********************************************!*\
+  !*** ./src/contentScript/contentScript.ts ***!
+  \********************************************/
+function addButtonToTextBoxes() {
+    let textBoxes = document.querySelectorAll("input[type='text'], textarea");
+    // Variable to store the menu container element
+    let menuContainer = null;
+    textBoxes.forEach((textBox) => {
+        let container = document.createElement("div");
+        container.style.position = "relative";
+        container.style.display = "inline-block";
+        textBox.before(container);
+        container.appendChild(textBox);
+        let button = document.createElement("button");
+        button.innerText = "RI";
+        button.style.backgroundColor = "teal";
+        button.style.position = "absolute";
+        button.style.borderRadius = "100%";
+        button.style.padding = "0.5em";
+        button.style.border = "none";
+        button.style.color = "#fff";
+        button.style.bottom = "2px";
+        button.style.right = "2px";
+        container.appendChild(button);
+        button.addEventListener("click", (event) => {
+            event.preventDefault(); // prevent form submission
+            const buttonRect = button.getBoundingClientRect();
+            const buttonCoordinates = {
+                x: buttonRect.x + window.scrollX,
+                y: buttonRect.y + window.scrollY,
+            };
+            // Check if the menu is already open
+            if (menuContainer) {
+                // If the menu is open, close it and set menuContainer to null
+                menuContainer.remove();
+                menuContainer = null;
+            }
+            else {
+                // If the menu is not open, create the menu container element
+                menuContainer = document.createElement('div');
+                menuContainer.style.position = 'absolute';
+                menuContainer.style.top = buttonRect.y + buttonRect.height + window.scrollY + 'px';
+                menuContainer.style.left = buttonRect.x + window.scrollX + 'px';
+                menuContainer.style.zIndex = '9999'; // ensure the menu is on top
+                // Append the menu container to the body
+                document.body.appendChild(menuContainer);
+                // Inject the menu component into the menu container
+                menuContainer.innerHTML = `
+          <iframe
+            src="${chrome.runtime.getURL('menu.html')}"
+            style="border: none; width: 400px; height: 300px;"
+          ></iframe>
+        `;
+            }
+        });
+        textBox.addEventListener("focus", () => {
+            button.style.display = "inline-block";
+        });
+    });
+}
+addButtonToTextBoxes();
+// ... (rest of the code)
+// Send a message to the background script with the selected text
+function copySelectedTextToBackground() {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement) {
+        const selectedText = activeElement.value.substring(activeElement.selectionStart, activeElement.selectionEnd);
+        if (selectedText) {
+            chrome.runtime.sendMessage({ type: 'selectedText', text: selectedText });
+        }
+    }
+}
+document.addEventListener('mouseup', copySelectedTextToBackground);
+document.addEventListener('keyup', copySelectedTextToBackground);
+//textbox
+function copyTextboxTextToBackground() {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement) {
+        const textboxText = activeElement.value;
+        if (textboxText) {
+            chrome.runtime.sendMessage({ type: 'textboxText', text: textboxText });
+        }
+    }
+}
+document.addEventListener('focusin', copyTextboxTextToBackground);
+document.addEventListener('input', copyTextboxTextToBackground);
+document.addEventListener('mouseup', copyTextboxTextToBackground);
+document.addEventListener('keyup', copyTextboxTextToBackground);
+
+/******/ })()
+;
+//# sourceMappingURL=contentScript.js.map
