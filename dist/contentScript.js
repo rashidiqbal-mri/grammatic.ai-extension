@@ -4,7 +4,23 @@ var __webpack_exports__ = {};
   !*** ./src/contentScript/contentScript.ts ***!
   \********************************************/
 function addButtonToTextBoxes() {
-    let textBoxes = document.querySelectorAll("input[type='text'], textarea");
+    // Find all input[type='text'], textarea, and contenteditable elements
+    let textBoxes = Array.from(document.querySelectorAll("input[type='text'], textarea, [contenteditable='true'], .Am.Al.editable.LW-avf.tS-tW"));
+    // Additionally, find contenteditable elements inside iframes (e.g., Gmail's email composition box)
+    document.querySelectorAll('iframe').forEach((iframe) => {
+        var _a;
+        try {
+            const innerDoc = iframe.contentDocument || ((_a = iframe.contentWindow) === null || _a === void 0 ? void 0 : _a.document);
+            if (innerDoc) {
+                const innerEditableElements = innerDoc.querySelectorAll("[contenteditable='true'], .Am.Al.editable.LW-avf.tS-tW");
+                textBoxes.push(...Array.from(innerEditableElements));
+                console.log("joooddndm");
+            }
+        }
+        catch (error) {
+            // Ignore cross-origin errors
+        }
+    });
     // Words to underline and their styles
     const wordsToUnderline = ['rashid', 'cool'];
     const underlineColors = ['red', 'green'];
@@ -17,7 +33,7 @@ function addButtonToTextBoxes() {
         // Create mirror element for measuring word widths
         let mirror = document.createElement("div");
         mirror.style.visibility = "hidden";
-        mirror.style.whiteSpace = "pre";
+        mirror.style.whiteSpace = "pre-wrap";
         mirror.style.position = "absolute";
         mirror.style.top = "0";
         mirror.style.left = "0";
@@ -33,7 +49,10 @@ function addButtonToTextBoxes() {
         // Update underlines
         const updateUnderlines = () => {
             overlay.innerHTML = ''; // Clear previous underlines
-            const text = textBox.value;
+            // Get the text content based on the type of element
+            const text = textBox instanceof HTMLElement && textBox.isContentEditable
+                ? textBox.textContent || ''
+                : textBox.value;
             const words = text.split(' ');
             let currentPos = 0;
             words.forEach((word) => {
@@ -56,7 +75,9 @@ function addButtonToTextBoxes() {
             });
         };
         textBox.addEventListener('input', updateUnderlines);
+        textBox.addEventListener('keyup', updateUnderlines); // For contenteditable
         updateUnderlines(); // Initial update of underlines
+        // Create the button
         let button = document.createElement("button");
         button.innerText = "RI";
         button.style.backgroundColor = "teal";
@@ -88,7 +109,7 @@ function addButtonToTextBoxes() {
                 menuContainer = document.createElement('div');
                 menuContainer.style.position = 'absolute';
                 menuContainer.style.top = buttonRect.y + buttonRect.height + window.scrollY + 'px';
-                menuContainer.style.left = buttonRect.x + window.scrollX + "px";
+                menuContainer.style.left = buttonRect.x + window.scrollX + 'px';
                 menuContainer.style.zIndex = '9999'; // ensure the menu is on top
                 // Append the menu container to the body
                 document.body.appendChild(menuContainer);

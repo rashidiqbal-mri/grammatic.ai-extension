@@ -1,10 +1,29 @@
 function addButtonToTextBoxes() {
-  let textBoxes = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[type='text'], textarea");
+  // Find all input[type='text'], textarea, and contenteditable elements
+  let textBoxes = Array.from(
+    document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLElement>(
+      "input[type='text'], textarea, [contenteditable='true'], .Am.Al.editable.LW-avf.tS-tW"
+    )
+  );
+
+  // Additionally, find contenteditable elements inside iframes (e.g., Gmail's email composition box)
+  document.querySelectorAll('iframe').forEach((iframe) => {
+    try {
+      const innerDoc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (innerDoc) {
+        const innerEditableElements = innerDoc.querySelectorAll<HTMLElement>("[contenteditable='true'], .Am.Al.editable.LW-avf.tS-tW");
+        textBoxes.push(...Array.from(innerEditableElements));
+        console.log("joooddndm");
+        
+      }
+    } catch (error) {
+      // Ignore cross-origin errors
+    }
+  });
 
   // Words to underline and their styles
   const wordsToUnderline = ['rashid', 'cool'];
   const underlineColors = ['red', 'green'];
-
   textBoxes.forEach((textBox) => {
     let container = document.createElement("div");
     container.style.position = "relative";
@@ -16,7 +35,7 @@ function addButtonToTextBoxes() {
     // Create mirror element for measuring word widths
     let mirror = document.createElement("div");
     mirror.style.visibility = "hidden";
-    mirror.style.whiteSpace = "pre";
+    mirror.style.whiteSpace = "pre-wrap";
     mirror.style.position = "absolute";
     mirror.style.top = "0";
     mirror.style.left = "0";
@@ -35,7 +54,11 @@ function addButtonToTextBoxes() {
     const updateUnderlines = () => {
       overlay.innerHTML = ''; // Clear previous underlines
 
-      const text = textBox.value;
+      // Get the text content based on the type of element
+      const text = textBox instanceof HTMLElement && textBox.isContentEditable
+        ? textBox.textContent || ''
+        : (textBox as HTMLInputElement | HTMLTextAreaElement).value;
+
       const words = text.split(' ');
 
       let currentPos = 0;
@@ -51,10 +74,7 @@ function addButtonToTextBoxes() {
           underline.style.position = 'absolute';
           underline.style.left = currentPos + 'px';
           underline.style.width = wordWidth + 'px';
-          
           underline.style.top = 'calc(100% - 45px)';
-          
-          
           overlay.appendChild(underline);
         }
         // Measure word + space width using mirror element
@@ -64,8 +84,10 @@ function addButtonToTextBoxes() {
     };
 
     textBox.addEventListener('input', updateUnderlines);
+    textBox.addEventListener('keyup', updateUnderlines); // For contenteditable
     updateUnderlines(); // Initial update of underlines
 
+    // Create the button
     let button = document.createElement("button");
     button.innerText = "RI";
     button.style.backgroundColor = "teal";
@@ -77,31 +99,32 @@ function addButtonToTextBoxes() {
     button.style.bottom = "2px";
     button.style.right = "2px";
     container.appendChild(button);
+    
+// Variable to store the menu container element
+let menuContainer = null;
 
-    // Variable to store the menu container element
-    let menuContainer = null;
+button.addEventListener("click", (event) => {
+  event.preventDefault(); // prevent form submission
 
-    button.addEventListener("click", (event) => {
-      event.preventDefault(); // prevent form submission
+  const buttonRect = button.getBoundingClientRect();
+  const buttonCoordinates = {
+    x: buttonRect.x + window.scrollX,
+    y: buttonRect.y + window.scrollY,
+  };
 
-      const buttonRect = button.getBoundingClientRect();
-      const buttonCoordinates = {
-        x: buttonRect.x + window.scrollX,
-        y: buttonRect.y + window.scrollY,
-      };
+  // Check if the menu is already open
+  if (menuContainer) {
+    // If the menu is open, close it and set menuContainer to null
+    menuContainer.remove();
+    menuContainer = null;
+  } else {
+    // If the menu is not open, create the menu container element
+    menuContainer = document.createElement('div');
+    menuContainer.style.position = 'absolute';
+    menuContainer.style.top = buttonRect.y + buttonRect.height + window.scrollY + 'px';
+    menuContainer.style.left = buttonRect.x + window.scrollX + 'px';
+    menuContainer.style.zIndex = '9999'; // ensure the menu is on top
 
-      // Check if the menu is already open
-      if (menuContainer) {
-        // If the menu is open, close it and set menuContainer to null
-        menuContainer.remove();
-        menuContainer = null;
-      } else {
-        // If the menu is not open, create the menu container element
-        menuContainer = document.createElement('div');
-        menuContainer.style.position = 'absolute';
-        menuContainer.style.top = buttonRect.y + buttonRect.height + window.scrollY + 'px';
-        menuContainer.style.left = buttonRect.x + window.scrollX+"px";
-        menuContainer.style.zIndex = '9999'; // ensure the menu is on top
     // Append the menu container to the body
     document.body.appendChild(menuContainer);
 
@@ -152,3 +175,4 @@ document.addEventListener('focusin', copyTextboxTextToBackground);
 document.addEventListener('input', copyTextboxTextToBackground);
 document.addEventListener('mouseup', copyTextboxTextToBackground);
 document.addEventListener('keyup', copyTextboxTextToBackground);
+    
